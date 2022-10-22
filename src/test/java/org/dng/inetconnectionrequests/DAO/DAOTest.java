@@ -1,6 +1,7 @@
 package org.dng.inetconnectionrequests.DAO;
 import org.dng.inetconnectionrequests.Models.ClientInfoEntity;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -93,9 +94,36 @@ class DAOTest {
 
     @org.junit.jupiter.api.Test
     void findAllByHQL() {
+        dao.deleteAllRecords();
+        List<ClientInfoEntity> itemList = new LinkedList<>();
+        itemList.add(new ClientInfoEntity("fio1", "email1@gmail.com", "+7912100201",
+                "Zimbabwe"));
+        itemList.add(new ClientInfoEntity("fio2", "email2@gmail.com", "+7912100202",
+                "Burundi"));
+
+        itemList.forEach(i -> dao.createRecord(i));
+
+        assertThat(dao.findAllByHQL())
+                .hasSize(itemList.size())
+                .containsAll(itemList)
+                .containsExactlyElementsOf(itemList);
     }
 
     @org.junit.jupiter.api.Test
     void findAllByNativQuery() {
+        dao.deleteAllRecords();
+        List<ClientInfoEntity> itemList = new LinkedList<>();
+        itemList.add(new ClientInfoEntity("fio1", "email1@gmail.com", "+7912100201",
+                "Zimbabwe"));
+        itemList.add(new ClientInfoEntity("fio2", "email2@gmail.com", "+7912100202",
+                "Burundi"));
+
+        itemList.forEach(i -> dao.createRecord(i));
+
+        assertThat(dao.findAllByNativQuery())
+                .hasSize(itemList.size())
+                .containsAll(itemList)
+                .containsExactlyElementsOf(itemList);
+
     }
 }

@@ -2,6 +2,7 @@ package org.dng.inetconnectionrequests.DAO;
 
 import jakarta.persistence.*;
 import org.dng.inetconnectionrequests.Models.ClientInfoEntity;
+import org.hibernate.Session;
 
 
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ public class DAO implements IDAO{
 
             entityManager.persist(item);
             transaction.commit();
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         } finally{
@@ -30,6 +32,7 @@ public class DAO implements IDAO{
             entityManager.close();
         }
     }
+
 
     @Override
     public void updateRecordBySettingParams(int id, ClientInfoEntity updatedItem) {
